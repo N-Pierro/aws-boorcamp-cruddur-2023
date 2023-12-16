@@ -1,0 +1,17 @@
+{
+    "AlarmName": "BillingAlarm",
+    "AlarmDescription": "Billing Alarm for Estimated Charges",
+    "ActionsEnabled": true,
+    "AlarmActions": ["arn:aws:sns:your-region:your-account-id:your-sns-topic-name"],
+    "OKActions": ["arn:aws:sns:your-region:your-account-id:your-sns-topic-name"],
+    "MetricName": "EstimatedCharges",
+    "Namespace": "AWS/Billing",
+    "Statistic": "Maximum",
+    "Dimensions": [{"Name": "Currency", "Value": "USD"}],
+    "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+    "Threshold": 1,
+    "EvaluationPeriods": 1,
+    "Period": 21600,
+    "Unit": "Count"
+  }
+  
