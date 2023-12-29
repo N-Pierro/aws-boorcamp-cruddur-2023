@@ -61,3 +61,76 @@ docker images
 ```
 curl -X GET http://localhost:4567/api/activities/home -H "Accept: application/json" -H "Content-Type: application/json"
 ```
+## Containerized Frontend
+
+### Run NPM install
+
+we have to run npm install before building the container since it needs to copy contents of the node_module 
+```sh
+cd frontend-react-js
+npm i
+```
+
+### Create the Dockerfile
+
+```Dockerfile
+FROM node:16.18
+
+ENV PORT=3000
+
+COPY . /frontend-react-js
+WORKDIR /frontend-react-js
+RUN npm install
+EXPOSE ${PORT}
+CMD ["npm", "start"]
+```
+
+## Build Container 
+
+```sh
+docker build -t frontend-react-js ./frontend-react-js
+```
+## Run Container
+
+```sh
+docker run -p 3000:3000 -d frontend-react-js
+```
+
+## Multiple Containers
+### Create a docker-compose file 
+Wih docker-composer we have more than one service running and working together locally 
+-  In this case we have two services; Frontend-react-js and backend-flask service
+  
+create a docker-compose.yml file at the root of your project directory
+```Dockerfile
+version: "3.8"
+services:
+  backend-flask:
+    environment:
+      FRONTEND_URL: "https://3001-$(GITPOD_WORKSTATION_ID).$(GITPOD_WORKSTATION_CLUSTER_HOST)"
+      BACKEND_URL: "https://4567-$(GITPOD_WORKSTATION_ID).$(GITPOD_WORKSTATION_CLUSTER_HOST)"
+    build: ./backend-flask
+    ports:
+    -  "4567:4567"
+    volumes:
+    -  ./backend-flask:backend-flask
+  frontend-react-js:
+    environment:
+      REACT_APP_BACKEND_URL: "https://4567-$(GITPOD_WORKSTATION_ID).$(GITPOD_WORKSTATION_CLUSTER_HOST)"
+    build: ./frontend-react-js
+    ports:
+    -  "3000:3000"
+    volumes:
+    -  ./frontend-react-js:frontend-react-js
+# The name flag is a hack to change the default prepend folder
+# name when outputting the image name
+networks:
+  internal-network:
+    driver: bridge
+    name: cruddur
+```
+either run the command
+```sh
+docker-compose up
+```
+or if using vscode, locate the docker-compose file and right-click on it, then select the option compose up
