@@ -153,7 +153,7 @@ or if using vscode, locate the docker-compose file and right-click on it, then s
    Run a Container:
    ```sh
    docker run IMAGE_NAME
-  ```
+   ```
   List Running Containers:
   ```sh
   docker ps
