@@ -133,4 +133,75 @@ either run the command
 ```sh
 docker-compose up
 ```
-or if using vscode, locate the docker-compose file and right-click on it, then select the option compose up
+or if using vscode, locate the docker-compose file and right-click on it, then select the option "compose up"
+
+## Futher Reading
+## Images and Containers:
+-  ### Image:
+        A lightweight, standalone, and executable package that includes everything needed to run a piece of software.
+-  ### Container:
+         An instance of a Docker image. It runs a software application with all dependencies isolated from the host system.
+   ## Docker Basic Commands:
+   Pull an Image:
+   ```sh
+   docker pull IMAGE_NAME[:TAG]
+   ```
+   List Downloaded Images:
+   ```sh
+   docker images
+   ```
+   Run a Container:
+   ```sh
+   docker run IMAGE_NAME
+  ```
+  List Running Containers:
+  ```sh
+  docker ps
+  ```
+  List all running containers including stopped conatiners:
+  ```sh
+  docker ps -a
+  ```
+  Stop a running container and remove a container:
+  ```sh
+  docker stop CONTAINER_ID
+  docker rm CONTAINER_ID
+ ```
+  Remove and image:
+  ```sh
+  docker rmi IMAGE_ID
+  ```
+## Docker Compose
+A tool for defining and running multi-Docker applications 
+## Docker Compose Commands
+Create and start containers from docker-compose.yml:
+```sh
+docker-compose up
+```
+Start comtainer in the Background:
+```sh
+docker-compose up -d
+```
+## Must know commands
+Build and image from a Dockerfile:
+```sh
+docker build -t IMAGE_NAME[:TAG] PATH_TO_DOCKERFILE
+```
+Run a command in a running container:
+```sh
+docker exec -it CONTAINER_ID COMMAND
+```
+View container Logs:
+```sh
+docker logs CONTAINER_ID
+```
+Inspect container detials:
+```sh
+docker inspect CONTAINER_ID
+```
+Prune unused resources:
+```sh
+docker system prune
+```
+
+
