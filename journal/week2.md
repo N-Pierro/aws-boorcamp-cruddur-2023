@@ -203,5 +203,14 @@ Prune unused resources:
 ```sh
 docker system prune
 ```
+## Create Notification feature 
+from the project directory, first cd into the front-end-react-js
+```sh
+cd front-end-react-js
+```
+run npm i command 
+```sh
+npm i
+```
 
 
