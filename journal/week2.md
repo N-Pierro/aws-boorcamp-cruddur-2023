@@ -203,5 +203,150 @@ Prune unused resources:
 ```sh
 docker system prune
 ```
+## Create Notification feature 
+from the project directory, first cd into the front-end-react-js
 
+## Install openapi(swagger) to work with api end-points
+- install openapi in vscode
+- navigate to the openapi-3.yml file
+- select the openapi icon on vscode to view the paths
+- right-click on the /api/activities end-point to add a new operation
+- name the new operation /api/activities/notification
+- safe and commit the changes
 
+## edited the app.py file 
+duplicated the /api/activities/home 
+changed the duplicate to ../notifications
+```python
+@app.route("/api/activities/home", methods=['GET'])
+def data_home():
+  data = HomeActivities.run()
+  return data, 200
+
+@app.route("/api/activities/notifications", methods=['GET'])
+def data_home():
+  data = NotificationsActivities.run()
+  return data, 200
+```
+added the notifications_activities file to the service folder 
+added "from services.notifications_activity import *" to the app.py file, represents the particular service for the notifications service created; each service represents and endpoint that can be called and hence very useful when running the applcation as a microservice.
+
+  
+```sh
+cd front-end-react-js
+```
+run npm i command 
+```sh
+npm i
+```
+Note the default confirmation code for the email verification is 1234, this code is hard-coded
+
+## implementing front-end notification page 
+Open the frontend-react-js
+- edit the app.js file to add the notification for the front-end application
+- add the this line 
+
+```javascript
+import './App.css';
+
+import HomeFeedPage from './pages/HomeFeedPage';
+import NotificationsFeedPage from './pages/NotificationsFeedPage'; // new line
+
+// add the route to this new end-point bellow
+{
+    path: "/notifications",
+    element: <NotificationsFeedPage />
+  },
+```
+Create 2 new files in the pages folder for the notifications
+- NotificationsFeedPage.js
+- NotificationsFeedPage.css
+  
+Copy contents of HomeFeedPages.js into the NotificationsFeedPages.js and make the following edits
+
+```javascript
+import './NotificationsFeedPage.css'; // change Home to NotificationsFeedPages
+import React from "react";
+
+import DesktopNavigation  from '../components/DesktopNavigation';
+import DesktopSidebar     from '../components/DesktopSidebar';
+import ActivityFeed from '../components/ActivityFeed';
+import ActivityForm from '../components/ActivityForm';
+import ReplyForm from '../components/ReplyForm';
+
+// [TODO] Authenication
+import Cookies from 'js-cookie'
+
+export default function HomeFeedPage() {
+  const [activities, setActivities] = React.useState([]);
+  const [popped, setPopped] = React.useState(false);
+  const [poppedReply, setPoppedReply] = React.useState(false);
+  const [replyActivity, setReplyActivity] = React.useState({});
+  const [user, setUser] = React.useState(null);
+  const dataFetchedRef = React.useRef(false);
+
+  const loadData = async () => {
+    try {
+      const backend_url = `${process.env.REACT_APP_BACKEND_URL}/api/activities/notifications` // change /home to /notifications
+      const res = await fetch(backend_url, {
+        method: "GET"
+      });
+      let resJson = await res.json();
+      if (res.status === 200) {
+        setActivities(resJson)
+      } else {
+        console.log(res)
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const checkAuth = async () => {
+    console.log('checkAuth')
+    // [TODO] Authenication
+    if (Cookies.get('user.logged_in')) {
+      setUser({
+        display_name: Cookies.get('user.name'),
+        handle: Cookies.get('user.username')
+      })
+    }
+  };
+
+  React.useEffect(()=>{
+    //prevents double call
+    if (dataFetchedRef.current) return;
+    dataFetchedRef.current = true;
+
+    loadData();
+    checkAuth();
+  }, [])
+
+  return (
+    <article>
+      <DesktopNavigation user={user} active={'notifications'} setPopped={setPopped} />
+      <div className='content'>
+        <ActivityForm  
+          popped={popped}
+          setPopped={setPopped} 
+          setActivities={setActivities} 
+        />
+        <ReplyForm 
+          activity={replyActivity} 
+          popped={poppedReply} 
+          setPopped={setPoppedReply} 
+          setActivities={setActivities} 
+          activities={activities} 
+        />
+        <ActivityFeed 
+          title="Notifications" 
+          setReplyActivity={setReplyActivity} 
+          setPopped={setPoppedReply} 
+          activities={activities} 
+        />
+      </div>
+      <DesktopSidebar user={user} />
+    </article>
+  );
+}
+```
