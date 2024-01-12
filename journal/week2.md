@@ -205,6 +205,33 @@ docker system prune
 ```
 ## Create Notification feature 
 from the project directory, first cd into the front-end-react-js
+
+## Install openapi(swagger) to work with api end-points
+- install openapi in vscode
+- navigate to the openapi-3.yml file
+- select the openapi icon on vscode to view the paths
+- right-click on the /api/activities end-point to add a new operation
+- name the new operation /api/activities/notification
+- safe and commit the changes
+
+## edited the app.py file 
+duplicated the /api/activities/home 
+changed the duplicate to ../notifications
+```python
+@app.route("/api/activities/home", methods=['GET'])
+def data_home():
+  data = HomeActivities.run()
+  return data, 200
+
+@app.route("/api/activities/notifications", methods=['GET'])
+def data_home():
+  data = NotificationsActivities.run()
+  return data, 200
+```
+added the notifications_activities file to the service folder 
+added "from services.notifications_activity import *" to the app.py file, represents the particular service for the notifications service created; each service represents and endpoint that can be called and hence very useful when running the applcation as a microservice.
+
+  
 ```sh
 cd front-end-react-js
 ```
@@ -212,5 +239,5 @@ run npm i command
 ```sh
 npm i
 ```
-
+Note the default confirmation code for the email verification is 1234, this code is hard-coded
 
