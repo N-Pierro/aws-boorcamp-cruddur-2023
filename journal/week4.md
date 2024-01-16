@@ -35,4 +35,11 @@ services:
       -  "./docker/dynamodb:/home/dynamodblocal/data"
     working_dir: /home/dynamodblocal
 ```
-      
+
+## Volumes 
+directory volume mapping 
+```yml
+volumes:
+  -  "./docker/dynamodb:/home/dynamodylocal/data"
+```
+named volume mapping 
