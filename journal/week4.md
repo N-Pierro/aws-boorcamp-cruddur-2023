@@ -52,7 +52,7 @@ named volume mapping
 A third-pary tool that serve this purpose is honeycomb. 
 - Install create a honeycomb account
 - Log into honeycomb
-- create a new enviroment [screenshot, creating a new env in honeycomb](journey/screenshot.md)
+- create a new enviroment [screenshot, creating a new env in honeycomb](./screenshot.md)
 - open the new enviroment and copy the api key
 - in gitpod run the following code to export and the api key to gitpod env
   
