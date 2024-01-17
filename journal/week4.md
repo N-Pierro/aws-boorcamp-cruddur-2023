@@ -61,6 +61,11 @@ opentelemery-exporter-otlp-proto-http
 opentelemetry-instrumentaion-flask
 opentelemetry-instrumentation-request
 ```
+Install this dependencies
+```sh
+pip install -r requirements.txt
+```
+add to the app.py
 
 
 A third-pary tool that serve this purpose is honeycomb. 
