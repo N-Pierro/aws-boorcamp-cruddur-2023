@@ -55,6 +55,9 @@ A third-pary tool that serve this purpose is honeycomb.
 - create a new enviroment [screenshot, creating a new env in honeycomb](./screenshot.md)
 - open the new enviroment and copy the api key
 - in gitpod run the following code to export and the api key to gitpod env
+
+### Note:
+for security purposes it's best practice for a multiple services running on the backend, to hard-code this in the docker-compose file for the different services.
   
 ```sh
 export HONEYCOMB_API_KEY="CArsB0ZoEIeets9QJcR8dM"
