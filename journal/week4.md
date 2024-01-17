@@ -52,7 +52,7 @@ named volume mapping
 ## Honeycomb
 
 When creating a new dateset in honeycomb it will provide all this  installation instructions 
-Add the following lines to the requirements.txt file [requirements.txt file](../backend-flask/services/requirements.txt)
+Add the following lines to the requirements.txt file [requirements.txt file](../backend-flask/requirements.txt)
 
 
 A third-pary tool that serve this purpose is honeycomb. 
