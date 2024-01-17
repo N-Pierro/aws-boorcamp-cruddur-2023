@@ -62,6 +62,8 @@ opentelemetry-instrumentaion-flask
 opentelemetry-instrumentation-request
 ```
 Install this dependencies
+navigate to the backend-flask directory 
+run the command: 
 ```sh
 pip install -r requirements.txt
 ```
