@@ -49,6 +49,12 @@ named volume mapping
 
 # Distributed Tracing 
 
+## Honeycomb
+
+When creating a new dateset in honeycomb it will provide all this  installation instructions 
+Add the following lines to the requirements.txt file [requirements.txt file](/backend-flask/services/requirements.txt)
+
+
 A third-pary tool that serve this purpose is honeycomb. 
 - Install create a honeycomb account
 - Log into honeycomb
@@ -62,4 +68,21 @@ for security purposes it's best practice for a multiple services running on the 
 ```sh
 export HONEYCOMB_API_KEY="CArsB0ZoEIeets9QJcR8dM"
 gp env HONEYCOMB_API_KEY="CArsB0ZoEIeets9QJcR8dM"
+```
+## Add the following env to the docker compose file 
+for the backend service 
+```Dockerfile
+ervices:
+  backend-flask:
+    environment:
+      FRONTEND_URL: "https://3000-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+      BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+      OTEL_SERVICE_NAME: "backend-flask"                                              #added line
+      OTEL_EXPORTER_OTLP_ENDPOINT: "https://api.honeycomb.io"                         #added line
+      OTEL_EXPORTER_OTLP_HEADERS: "x-honeycomb-team=$(HONEYCOMB_API_KEY)"             #added line 
+    build: ./backend-flask
+    ports:
+    -  "4567:4567"
+    volumes:
+    -  ./backend-flask:/backend-flask
 ```
