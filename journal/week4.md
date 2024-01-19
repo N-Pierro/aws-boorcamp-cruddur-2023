@@ -73,6 +73,29 @@ pip install -r requirements.txt
 ```
 add to the app.py
 
+```sh
+# app.py updates 
+from opentelemetry import trace 
+from opentelemetry.instrumentation.flask import FlaskInstrumentor
+from opentelemetry.instrumentation.requests import RequestsInstrumentor
+from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
+from opentelemetry.sdk.trace import TraceProvider 
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
+
+
+# Initialize tracing and an exporter that can send data to Honeycomb
+provider = TraceProvider()
+processor = BatchSpanProcessor(OTLPSpanExporter())
+provider.add_span_processor(processor)
+trace.set_tracer_provider(provider)
+tracer = trace.get_tracer(__name__)
+
+# Initialize automatic instrumention with Flask
+app = Flask(__name__)
+FlaskInstrumentor().instrument_app(app)
+RequestsInstrumentor().instrument()
+```
+
 
 A third-pary tool that serve this purpose is honeycomb. 
 - Install create a honeycomb account
