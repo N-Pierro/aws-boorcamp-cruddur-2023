@@ -55,11 +55,13 @@ When creating a new dateset in honeycomb it will provide all this  installation 
 Add the following lines to the requirements.txt file [requirements.txt file](../backend-flask/requirements.txt)
 
 ```txt
+flask
+flask-cors
 opentelemetry-api
 opentelemetry-sdk
-opentelemery-exporter-otlp-proto-http
-opentelemetry-instrumentaion-flask
-opentelemetry-instrumentation-request
+opentelemetry-exporter-otlp-proto-http
+opentelemetry-instrumentation-flask
+opentelemetry-instrumentation-requests
 ```
 Install this dependencies. 
 
