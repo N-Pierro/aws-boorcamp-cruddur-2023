@@ -73,7 +73,7 @@ pip install -r requirements.txt
 ```
 add to the app.py
 
-```sh
+```py
 # app.py updates 
 from opentelemetry import trace 
 from opentelemetry.instrumentation.flask import FlaskInstrumentor
