@@ -135,3 +135,21 @@ ervices:
 AWS-X-Ray provides API's for managining debug traces and retrieving sevices maps and 
 
 other data created by processing those traces.
+
+Export and configure the env for gp
+
+```sh
+export AWS_REGION="us-east-1"
+gp env AWS_REGION="us-east-1"
+```
+Add to the requirements.txt file 
+
+```sh
+aws-xray-sdk
+```
+Install the dependencies
+
+```sh
+pip install -r requirements.txt
+```
+
