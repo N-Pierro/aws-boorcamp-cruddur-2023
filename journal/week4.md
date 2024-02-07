@@ -184,4 +184,19 @@ add `aws/json/aws.json`
 }
 ```
 
+run the command to below to create x-ray group in order to group the traces. Note this is not important
 
+cd > cd backend-flask
+
+```sh
+aws xray create-group \
+    --group-name Cruddur \
+    --filter-expression 'service("backend-flask")'
+```
+create a sampling rule 
+
+run the command below 
+
+```sh
+aws xray create-group --cli-input-json file://aws/json/xray.json
+```
