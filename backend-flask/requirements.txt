@@ -5,4 +5,4 @@ opentelemetry-sdk
 opentelemetry-exporter-otlp-proto-http
 opentelemetry-instrumentation-flask
 opentelemetry-instrumentation-requests
-#pip install aws-xray-sdk  make sure to remove the hash 
+pip install aws-xray-sdk  
