@@ -200,3 +200,39 @@ run the command below
 ```sh
 aws xray create-group --cli-input-json file://aws/json/xray.json
 ```
+# Install X-ray Daemon
+
+Github aws-xray-daemon X-Ray Docker Compose example 
+
+To install the daemon onto our enviroment the run the below command 
+
+```sh
+wget https://s3.us.east-2.amazonaws.com/aws-xray-assets.us-east-2/xray-daemon/aws-xray-daemon-3.x.deb
+sudo dpkg -i **.deb
+```
+
+It will be preferable to run daemon as a container in docker compose; use the docker compose file 
+
+## Add Deamon Service to Docker Compose 
+
+```Dockerfile
+xray-daaemon:
+  image: "amazon/aws-xray-daemon"
+  environment:
+    AWS_ACCESS_KEY_ID: "$(AWS_ACCESS_KEY_ID)"
+    AWS_SECRET_ACCESS_KEY: "$(AWS_SECRET_ACCESS_KEY)"
+    AWS_REGION: "us-east-2"
+  command:
+    - "xray -o -b xray-daemon:2000"
+  ports:
+    - 2000:2000/udp
+
+```
+## add these two env cars to our backend-flask in our docker-compose.yml file
+
+```Dockerfile
+AWS_XRAY_URL: "*4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}*"
+AWS_XRAY_DAEMON_ADDRESS: "xray-daemon:2000"
+```
+
+
