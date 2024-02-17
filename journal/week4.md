@@ -174,7 +174,7 @@ add `aws/json/aws.json`
       "Priority":  9000,
       "FixedRate":  0.1,
       "ReservoirSize":  5,
-      "SercieName":  "Cruddur",
+      "SercieName":  "backend-flask",
       "SercieType":  "*",
       "Host":  "*",
       "HTTPMethod":  "*",
@@ -196,10 +196,10 @@ aws xray create-group \
 ```
 create a sampling rule 
 
-run the command below 
+run the command below to create a sampling rule for the above sampling rule json file 
 
 ```sh
-aws xray create-group --cli-input-json file://aws/json/xray.json
+aws xray create-sampling-rule --cli-input-json file://aws/json/xray.json
 ```
 # Install X-ray Daemon
 
