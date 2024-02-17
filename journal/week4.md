@@ -189,9 +189,10 @@ run the command to below to create x-ray group in order to group the traces. Not
 cd > cd backend-flask
 
 ```sh
+FLASK_ADDRESS="https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
 aws xray create-group \
-    --group-name Cruddur \
-    --filter-expression 'service("backend-flask")'
+    --group-name "Cruddur" \
+    --filter-expression "service(\"FLASK_ADDRESS\"){ault OR error}"
 ```
 create a sampling rule 
 
