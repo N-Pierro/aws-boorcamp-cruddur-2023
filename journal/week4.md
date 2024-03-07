@@ -239,6 +239,57 @@ AWS_XRAY_DAEMON_ADDRESS: "xray-daemon:2000"
 
 ## Cloud Watch Logs
 
+add to requirements.txt 
+
+`watchtower`
+
+```sh
+pip install -r requirements.txt
+```
+in `appl.py`
+
+```sh
+import watchtower
+import logging
+from time import strftime
+```
+```sh
+# configure logger to use cloudwatch log
+
+# # Configure logger to use CloudWatch Logs
+LOGGER = logging.getLogger(__name__)
+LOGGER.setLevel(logging.DEBUG)
+
+# Create handlers
+console_handler = logging.StreamHandler()  # Assuming you want to log to the console as well
+cw_handler = watchtower.CloudWatchLogHandler(log_group='cruddur')
+
+# Add handlers to the logger
+LOGGER.addHandler(console_handler)
+LOGGER.addHandler(cw_handler)
+```
+
+```sh
+@app.after_request
+def after_request(response):
+  timestamp = strftime('[%Y-%b-%d %H:%M]')
+  LOGGER.error('%s %s %s %s %s %s', timestamp, request.remote_addr, request.method, request.scheme, request.full_path, response.status)
+  return response
+```
+
+we'll log something in API endpoint
+
+`LOGGER.info('Hello api cloudwatch! from /api/activities/home')`
+
+set the env var in backend-flask for `docker-compose.yml`
+
+```dockerfile
+AWS_DEFAULT_REGION: "${AWS_DEFAULT_REGION}"
+AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
+AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
+```
+
+
 
 
 
