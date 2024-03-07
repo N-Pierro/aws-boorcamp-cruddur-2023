@@ -6,3 +6,5 @@ opentelemetry-exporter-otlp-proto-http
 opentelemetry-instrumentation-flask
 opentelemetry-instrumentation-requests
 pip install aws-xray-sdk  
+
+watchtower
