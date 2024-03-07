@@ -27,6 +27,20 @@ import watchtower
 import logging
 from time import strftime
 
+# configure logger to use cloudwatch log
+
+# # Configure logger to use CloudWatch Logs
+LOGGER = logging.getLogger(__name__)
+LOGGER.setLevel(logging.DEBUG)
+
+# Create handlers
+console_handler = logging.StreamHandler()  # Assuming you want to log to the console as well
+cw_handler = watchtower.CloudWatchLogHandler(log_group='cruddur')
+
+# Add handlers to the logger
+LOGGER.addHandler(console_handler)
+LOGGER.addHandler(cw_handler)
+
 # x-ray.......
 from aws_xray_sdk.core import xray_recorder
 from aws_xray_sdk.ext.flask.middleware import XRayMiddleware
