@@ -2,11 +2,13 @@ from datetime import datetime, timedelta, timezone
 # This is to create span from a particular trace 
 # it shows the shape of requests to the system  --------
 from opentelemetry import trace
+import logging
 
 tracer = trace.get_tracer("home.activities")
 
 class HomeActivities:
-  def run():
+  def run(logger):
+    LOGGER.info("HomeActivities")
     with tracer.start_as_current_span("home-activities-data"):
       span = trace.get_current_span()
       now = datetime.now(timezone.utc).astimezone()
