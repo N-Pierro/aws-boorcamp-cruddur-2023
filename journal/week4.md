@@ -237,3 +237,8 @@ AWS_XRAY_DAEMON_ADDRESS: "xray-daemon:2000"
 ```
 
 
+## Cloud Watch Logs
+
+
+
+
