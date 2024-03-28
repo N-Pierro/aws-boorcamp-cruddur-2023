@@ -8,3 +8,6 @@ opentelemetry-instrumentation-requests
 pip install aws-xray-sdk  
 
 watchtower
+
+blinker
+rollbar
