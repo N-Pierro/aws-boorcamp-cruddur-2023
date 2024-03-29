@@ -10,6 +10,11 @@ tasks:
       cd $THEIA_WORKSPACE_ROOT
 
 
+  -  name: frontend-setup
+     init: |
+       cd /workspace/aws-boorcamp-cruddur-2023/frontend-react-js
+       npm i
+
 vscode:
   extensions:
     - 42Crunch.vscode-openapi
