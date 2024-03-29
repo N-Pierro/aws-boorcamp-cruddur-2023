@@ -298,5 +298,38 @@ Run the docker-compose up
 
 
 
+## Rollbar 
+
+https://rollbar.com
+
+Create a new project in rollbar called cruddur
+
+pyrollbar requires both blinker and rollbar to be installed
+
+Add to `requirements.txt`
+
+```
+blinker
+rollbar
+```
+install deps
+
+```sh
+cd backend-flask
+```
+run the command below
+
+`pip install -r requirements.txt`
+
+Next set the access token 
+
+```
+export ROLLBAR_ACCESS_TOKEN=""
+gp env ROLLBAR_ACCESS_TOKEN=""
+```
+The above set export the rollbar access token in gitpod 
+
+
+
 
 
