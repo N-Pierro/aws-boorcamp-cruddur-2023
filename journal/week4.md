@@ -329,6 +329,15 @@ gp env ROLLBAR_ACCESS_TOKEN=""
 ```
 The above set export the rollbar access token in gitpod 
 
+Next add to backend-flask for `docker-compose.yml`
+
+`ROLLBAR_ACCESS_TOKEN: "${ROLLBAR_ACCESS_TOKEN}"`
+
+import to Rollbar
+
+```Dockerfile
+
+
 
 
 
