@@ -9,6 +9,12 @@ tasks:
       sudo ./aws/install
       cd $THEIA_WORKSPACE_ROOT
 
+  -  name: frontend-setup
+     init: |
+       cd /workspace/aws-boorcamp-cruddur-2023/frontend-react-js
+       npm i
+       cd /workspace/aws-boorcamp-cruddur-2023/
+
 
 vscode:
   extensions:
