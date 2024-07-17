@@ -12,7 +12,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      REGISTRY: aws_bootcamp_cruddur
+      REGISTRY: ctech5
       FRONTEND_IMAGE: aws_cruddur_frontend
       BACKEND_IMAGE: aws_cruddur_backend
 
