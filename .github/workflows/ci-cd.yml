@@ -13,8 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       REGISTRY: ctech5
-      FRONTEND_IMAGE: frontend
-      BACKEND_IMAGE: backend
+      FRONTEND_IMAGE: aws_cruddur_frontend
+      BACKEND_IMAGE: aws_cruddur_backend
 
     steps:
       - name: Checkout code
