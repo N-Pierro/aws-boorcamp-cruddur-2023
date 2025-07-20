@@ -1,52 +1,37 @@
-name: CI/CD Pipeline
+name: Build Frontend and Backend 
 
-on:
+on: 
   push:
     branches:
+      - 'feature/**'
       - main
-  pull_request:
-    branches:
-      - main
+    pull_request:
+      branches:
+        - main
+    workflow_dispatch:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    env:
-      REGISTRY: ctech5
-      FRONTEND_IMAGE: aws_cruddur_frontend
-      BACKEND_IMAGE: aws_cruddur_backend
+    name: Build Frontend Docker Image
+    run-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Checkout source code
+      - uses: actions/checkout@v4
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+      - name: set up Docker Buildx
+      - uses: docker/setup-buildx-action@v3
 
-      - name: Login to DockerHub
-        uses: docker/login-action@v1
+      - name: Log in to Github Container Registry
+        uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          registry: ghcr.io
+          usernamed: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push frontend image
-        uses: docker/build-push-action@v2
+      - name: Build and Push
+        uses: docker/build-push-action@v3 
         with:
-          context: ./frontend-react-js
+          context: ./frontend-react
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE }}:latest
-
-      - name: Build and push backend image
-        uses: docker/build-push-action@v2
-        with:
-          context: ./backend-flask
-          push: true
-          tags: ${{ env.REGISTRY }}/${{ env.BACKEND_IMAGE }}:latest
-
-      - name: Deploy to Kubernetes
-        run: |
-          kubectl apply -f kubernetes/frontend-deployment.yml
-          kubectl apply -f kubernetes/backend-deployment.yml
-          kubectl apply -f kubernetes/database-deployment.yml
-        env:
-          KUBECONFIG: ${{ secrets.KUBECONFIG }}
+          tags: ghcr.io/${{ github.repository_owner }}/cruddur-frontend:v1
