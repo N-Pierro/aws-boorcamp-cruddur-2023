@@ -36,5 +36,5 @@ jobs:
         uses: docker/build-push-action@v3 
         with:
           context: ./frontend-react-js
-          push: true
-          tags: ghcr.io/aws-bootcamp/cruddur-frontend:${{ github.sha }}
+          push: false
+          tags: ghcr.io/${{ github.repository_owner }}/aws-boorcamp-cruddur-2023/cruddur-frontend:${{ github.sha }}
