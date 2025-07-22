@@ -37,4 +37,4 @@ jobs:
         with:
           context: ./frontend-react-js
           push: true
-          tags: ghcr.io/${{ env.OWNER_LC }}/aws-boorcamp-cruddur-2023/cruddur-frontend:${{ github.sha }}
+          tags: ghcr.io/${{ env.OWNER_LC }}/cruddur-frontend:latest
