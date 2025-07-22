@@ -39,4 +39,4 @@ jobs:
         with:
           context: ./frontend-react
           push: true
-          tags: ghcr.io/${GITHUB_REPOSITORY#*/}cruddur-frontend:v1
+          tags: ghcr.io/${OWNER_LC}/cruddur-frontend:v1
