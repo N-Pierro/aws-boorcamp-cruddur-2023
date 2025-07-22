@@ -35,6 +35,6 @@ jobs:
       - name: Build and Push
         uses: docker/build-push-action@v3 
         with:
-          context: ./frontend-react
+          context: ./frontend-react-js
           push: true
           tags: ghcr.io/${{ env.OWNER_LC }}/cruddur-frontend:${{ github.sha }}
