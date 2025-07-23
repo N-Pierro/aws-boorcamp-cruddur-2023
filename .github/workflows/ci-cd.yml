@@ -11,9 +11,11 @@ on:
     workflow_dispatch:
 
 jobs:
-  build:
-    name: Build Frontend Docker Image
+  build-frontend:
+    name: Build Frontend Image
     runs-on: ubuntu-latest
+    outputs:
+      image-url: ${{ steps.meta.outputs.image }}
     steps:
       - name: set lower case owner name
         run: echo "OWNER_LC=${OWNER,,}" >>${GITHUB_ENV}
@@ -31,10 +33,16 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.CR_PAT }}
+      
+      - name: define image metadata
+        id: meta
+        run: |
+          echo "image=ghcr.io/${{ env.OWNER_LC }}/cruddur-frontend:latest" >> $GITHUB_OUTPUT
+          echo "tags=ghcr.io/${{ env.OWNER_LC }}/cruddur-frontend:latest,ghcr.io/${{ env.OWNER_LC }}/cruddur-frontend:${{ github.sha }}" >> $GITHUB_OUTPUT
 
       - name: Build and Push
         uses: docker/build-push-action@v3 
         with:
           context: ./frontend-react-js
           push: true
-          tags: ghcr.io/${{ env.OWNER_LC }}/cruddur-frontend:latest
+          tags: ${{ steps.meta.outputs.image }} 
