@@ -41,7 +41,7 @@ jobs:
           echo "image=ghcr.io/${{ env.OWNER_LC }}/cruddur-frontend:latest" >> $GITHUB_OUTPUT
           echo "tags=ghcr.io/${{ env.OWNER_LC }}/cruddur-frontend:latest,ghcr.io/${{ env.OWNER_LC }}/cruddur-frontend:${{ github.sha }}" >> $GITHUB_OUTPUT
       - name: Build and push image 
-        uses: docker/build-push-actions@v5
+        uses: docker/build-push-actions@v3
         with:
           context: ./${{ matrix.service.path }}
           file: ./${{matrix.service.path}}/Dockerfile
