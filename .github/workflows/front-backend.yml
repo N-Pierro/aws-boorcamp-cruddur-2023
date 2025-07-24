@@ -43,13 +43,13 @@ jobs:
       - name: Set image tag
         id: meta
         run: |
-          echo "image=ghcr.io/${{ env.OWNER_LC }}/cruddur-frontend:latest" >> $GITHUB_OUTPUT
-          echo "tags=ghcr.io/${{ env.OWNER_LC }}/cruddur-frontend:latest,ghcr.io/${{ env.OWNER_LC }}/cruddur-frontend:${{ github.sha }}" >> $GITHUB_OUTPUT
+          TAG=ghcr.io/${OWNER_LC}/cruddur-${{ matrix.service.name }}:${{ github.sha }}
+          echo "image=$TAG" >> $GITHUB_OUTPUT
       - name: Build and push image 
         uses: docker/build-push-action@v3
         with:
           context: ./${{ matrix.service.path }}
           file: ./${{matrix.service.path}}/Dockerfile
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ steps.meta.outputs.image }}
           
