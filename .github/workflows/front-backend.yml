@@ -1,0 +1,50 @@
+name: Shared CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - 'feature/**'
+    pull-request:
+      branches:
+        - main
+    workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service:
+          - name: frontend
+            path: frontend-react-js
+            image: ghcr.io/${{ github.repository_owner }}/cruddur-frontend
+          - name: backend
+            path: backend-flask
+            image: ghcr.io/${{ github.repository_owner }}/cruddur-backend
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set lowercase owner name
+        run: echo "OWNER_LC=${OWNER,,}" >> $GITHUB_ENV
+        env: 
+          OWNER: "${{ github.repository_owner }}"
+      - name: Login to GitHub Container Registry
+        uses: docker/login-actions@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Set image tag
+        id: meta
+        run: |
+          echo "image=ghcr.io/${{ env.OWNER_LC }}/cruddur-frontend:latest" >> $GITHUB_OUTPUT
+          echo "tags=ghcr.io/${{ env.OWNER_LC }}/cruddur-frontend:latest,ghcr.io/${{ env.OWNER_LC }}/cruddur-frontend:${{ github.sha }}" >> $GITHUB_OUTPUT
+      - name: Build and push image 
+        uses: docker/build-push-actions@v5
+        with:
+          context: ./${{ matrix.service.path }}
+          file: ./${{ Dockerfile }}
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          
