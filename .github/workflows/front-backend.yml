@@ -51,12 +51,12 @@ jobs:
           file: ./${{matrix.service.path}}/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.image }}
-        
+      
+      - name: show image tag
+        run: echo "Image: ${{ steps.meta.outputs.image }}"
+  
       - name: write image to file
         run: echo "${{ steps.meta.outputs.image }}" > tag.txt 
-      
-      - name: write image tag
-        run: echo "Image: ${{ steps.meta.outputs.image }}"
 
       - name: upload image tag artificat
         uses: actions/upload-artifact@v4
