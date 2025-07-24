@@ -44,6 +44,10 @@ jobs:
         id: meta
         run: |
           echo "image=ghcr.io/${OWNER_LC}/cruddur-${{ matrix.service.name }}:${{ github.sha }}" >> $GITHUB_OUTPUT
+
+      - name: show final image tag
+        run: echo "Image tag: ${{ steps.meta.outputs.image }}"
+
       - name: Build and push image 
         uses: docker/build-push-action@v3
         with:
@@ -59,5 +63,5 @@ jobs:
       - name: upload image tag artificat
         uses: actions/upload-artifact@v4
         with:
-          name: backend-image-tag
+          name: ${{ matrix.service.name }}-image-tag
           path: tag.txt 
