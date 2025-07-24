@@ -56,12 +56,11 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.image }}
       
-  
-      - name: write image to file
-        run: echo "${{ steps.meta.outputs.image }}" > tag.txt 
-
-      - name: upload image tag artificat
-        uses: actions/upload-artifact@v4
-        with:
+     - name: Show final image tag
+       run: echo "Image tag: ${{ steps.meta.outputs.image }}"
+ 
+     - name: upload image tag artificat
+       uses: actions/upload-artifact@v4
+       with:
           name: ${{ matrix.service.name }}-image-tag
           path: tag.txt 
