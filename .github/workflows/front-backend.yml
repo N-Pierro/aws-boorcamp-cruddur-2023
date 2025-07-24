@@ -52,10 +52,6 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.image }}
       
-      - name: show image tag
-        run: echo "Image: $IMAGE_TAG"
-        env:
-          IMAGE_TAG:  ${{ steps.meta.outputs.image }}
   
       - name: write image to file
         run: echo "${{ steps.meta.outputs.image }}" > tag.txt 
