@@ -53,10 +53,10 @@ jobs:
           tags: ${{ steps.meta.outputs.image }}
         
       - name: write image to file
-        run: echo "${{ steps.meta.output.image }}" > tag.txt 
+        run: echo "${{ steps.meta.outputs.image }}" > tag.txt 
       
       - name: echo image tag
-        run: echo "Image: ${{ steps.meta.output.image }}"
+        run: echo "Image: ${{ steps.meta.outputs.image }}"
 
       - name: upload image tag artificat
         uses: actions/upload-artifact@v4
