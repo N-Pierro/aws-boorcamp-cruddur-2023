@@ -55,7 +55,7 @@ jobs:
       - name: write image to file
         run: echo "${{ steps.meta.outputs.image }}" > tag.txt 
       
-      - name: echo image tag
+      - name: write image tag
         run: echo "Image: ${{ steps.meta.outputs.image }}"
 
       - name: upload image tag artificat
